@@ -1,0 +1,9 @@
+[
+	{
+		"name": "Oil Price",
+		"icon": "oil.svg",
+		"colour": "orange",
+		"description": "The price of Oil",
+		"id": "oil"
+	}
+]

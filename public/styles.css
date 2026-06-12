@@ -9,13 +9,12 @@
 	align-items: center;
 	color: gray;
 	cursor: pointer;
-
 	width: 15rem;
 	height: 15rem;
-
 	border-radius: 10px;
 	background-color: white;
 	border-style: dashed;
+	user-select: none;
 }
 
 #new-widget > ul {
@@ -58,4 +57,36 @@
 #plus-icon {
 	width: 2rem;
 	height: auto;
+}
+
+dialog {
+	outline: none;
+	max-width: none;
+	width: 80vw;
+}
+
+dialog::backdrop {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+#new-widgets {
+	margin: auto;
+	padding: auto;
+	width: 100%;
+	display: flex;
+}
+
+input[type="search"] {
+	background: url("icons/search.svg") top left no-repeat;
+	height: 2rem;
+	padding-left: 30px;
+	border-radius: 5px;
+	outline: none;
+	width: 100%;
+	display: flex;
+	font-size: 20px;
+}
+
+#add-widgets-heading {
+	margin-top: 0;
 }
