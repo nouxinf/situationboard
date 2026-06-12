@@ -1,0 +1,25 @@
+#new-widget {
+	border-color: grey;
+	border-style: dashed;
+}
+
+.widget {
+	width: 15rem;
+	height: 15rem;
+	border-width: 3px;
+	border-radius: 10px;
+	margin-right: 1rem;
+}
+
+.real-widget {
+	border-color: rgb(128, 128, 128);
+	border-style: solid;
+}
+
+#widgets {
+	list-style-type: none;
+	padding-left: 10px;
+}
+#widgets > li {
+	display: inline-block;
+}

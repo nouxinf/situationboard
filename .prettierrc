@@ -1,0 +1,8 @@
+{
+  "checkIgnorePragma": true,
+  "semi": true,
+  "singleAttributePerLine": true,
+  "singleQuote": false,
+  "tabWidth": 4,
+  "useTabs": true
+}
