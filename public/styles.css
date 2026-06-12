@@ -1,6 +1,27 @@
+* {
+	font-family: "Inter", sans-serif;
+}
+
 #new-widget {
-	border-color: grey;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: gray;
+	cursor: pointer;
+
+	width: 15rem;
+	height: 15rem;
+
+	border-radius: 10px;
+	background-color: white;
 	border-style: dashed;
+}
+
+#new-widget > ul {
+	list-style-type: none;
+	text-align: center;
+	padding: 0px;
 }
 
 .widget {
@@ -9,6 +30,7 @@
 	border-width: 3px;
 	border-radius: 10px;
 	margin-right: 1rem;
+	vertical-align: top;
 }
 
 .real-widget {
@@ -17,9 +39,23 @@
 }
 
 #widgets {
-	list-style-type: none;
+	display: flex;
+	list-style: none;
+	padding-left: 10px;
+	gap: 1rem;
+	align-items: flex-start;
+}
+
+#widgets > li {
+	margin: 0;
+	padding: 0;
+}
+
+#heading {
 	padding-left: 10px;
 }
-#widgets > li {
-	display: inline-block;
+
+#plus-icon {
+	width: 2rem;
+	height: auto;
 }
