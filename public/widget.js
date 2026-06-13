@@ -3,6 +3,7 @@ const addWidgets = document.getElementById("add-widgets");
 const widgetsList = document.getElementById("widgets-list");
 let widgetsJSON = [];
 let widgetAddDiv;
+let userWidgets;
 const addNewWidgetHTML = /* HTML */ ` <li>
 	<div
 		id="new-widget"
@@ -19,6 +20,12 @@ const addNewWidgetHTML = /* HTML */ ` <li>
 		</ul>
 	</div>
 </li>`;
+
+if (localStorage.getItem("situationboard-widgets") == null) {
+	userWidgets = ["catpic"];
+} else {
+	userWidgets = localStorage.getItem("situationboard-widgets");
+}
 
 /*newWidget.addEventListener("click", function (event) { /* commented this bc its gonna be dynamically loaded */ /*
 	addWidgets.showModal();
@@ -70,3 +77,15 @@ getWidgets().then(() => {
 		widgetsList.appendChild(widgetAddDiv);
 	}
 });
+
+// START PUTTING IN WIDGETS ON MAIN SCREEN
+function updateLocalStorage() {
+	localStorage.setItem("situationboard-widgets", userWidgets);
+	return new Promise((resolve) => setTimeout(resolve, 1000));
+}
+(async () => {
+	while (true) {
+		await updateLocalStorage();
+	}
+})();
+// console.log("this should run!");
