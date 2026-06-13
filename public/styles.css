@@ -90,3 +90,32 @@ input[type="search"] {
 #add-widgets-heading {
 	margin-top: 0;
 }
+
+.widget-icon-wrapper {
+	width: 26px;
+	height: 26px;
+	border-radius: 2px;
+	border-style: solid;
+	margin-left: 3px;
+}
+
+.widget-icon {
+	width: 24px;
+	height: 24px;
+	mask-size: contain;
+}
+
+.widget-add-div-name {
+	margin-left: 5px;
+}
+
+.add-widget-button {
+	position: absolute;
+	right: 20px;
+	height: 28px;
+	width: 28px;
+	background: url("icons/plus.svg") center no-repeat;
+	border-radius: 10px;
+	outline: none;
+	cursor: pointer;
+}
