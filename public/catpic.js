@@ -5,10 +5,15 @@ async function initCatpic(container) {
 	`;
 	const refreshCatpic = container.querySelector("#refresh-catpic");
 	const catpicImage = container.querySelector("#catpic-image");
+	const zoomedCatpicImage = document.getElementById("zoomed-catpic");
+	const zoomedCatpicDialog = document.getElementById("catpic-zoom");
 	refreshCatpic.addEventListener("click", () => {
 		refreshImage(catpicImage);
 	});
-
+	catpicImage.addEventListener("click", () => {
+		zoomedCatpicImage.src = catpicImage.src;
+		zoomedCatpicDialog.showModal();
+	});
 	await refreshImage(catpicImage);
 }
 async function refreshImage(imgEl) {
@@ -20,6 +25,4 @@ async function refreshImage(imgEl) {
 	imgEl.src = URL.createObjectURL(blob);
 }
 
-function destroyCatpic(container) {
-	// cleanup
-}
+function destroyCatpic(container) {}
