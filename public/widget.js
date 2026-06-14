@@ -1,9 +1,10 @@
-// const newWidget = document.getElementById("new-widget"); /* commented this bc its gonna be dynamically loaded */
 const addWidgets = document.getElementById("add-widgets");
 const widgetsList = document.getElementById("widgets-list");
+const widgetsContainer = document.getElementById("widgets");
 let widgetsJSON = [];
 let widgetAddDiv;
 let userWidgets;
+
 const addNewWidgetHTML = /* HTML */ ` <li>
 	<div
 		id="new-widget"
@@ -24,25 +25,60 @@ const addNewWidgetHTML = /* HTML */ ` <li>
 if (localStorage.getItem("situationboard-widgets") == null) {
 	userWidgets = ["catpic"];
 } else {
-	userWidgets = localStorage.getItem("situationboard-widgets");
+	userWidgets = JSON.parse(localStorage.getItem("situationboard-widgets"));
 }
 
-/*newWidget.addEventListener("click", function (event) { /* commented this bc its gonna be dynamically loaded */ /*
-	addWidgets.showModal();
-});
-*/
+const widgetRegistry = {
+	catpic: { init: initCatpic, destroy: destroyCatpic }, // destroy cat 😡
+};
+
+const widgetElements = new Map();
+// called when userWidgets changes
+function reconcile() {
+	// remove widgets that are no longer in userWidgets
+	for (const [id, el] of widgetElements) {
+		if (!userWidgets.includes(id)) {
+			widgetRegistry[id]?.destroy(el);
+			el.closest("li").remove();
+			widgetElements.delete(id);
+		}
+	}
+
+	// create or reorder to match userWidgets
+	userWidgets.forEach((id, index) => {
+		let el = widgetElements.get(id);
+
+		if (!el) {
+			const li = document.createElement("li");
+			el = document.createElement("div");
+			el.dataset.widget = id;
+			el.classList.add("widget");
+			el.classList.add("real-widget");
+			widgetsContainer.appendChild(el);
+			li.appendChild(el);
+			widgetsContainer.appendChild(li);
+			widgetElements.set(id, el);
+			widgetRegistry[id]?.init(el);
+		}
+
+		// move to correct slot if order is wrong
+		const slots = [...widgetsContainer.children];
+		if (slots[index] !== el) {
+			widgetsContainer.insertBefore(el, slots[index] ?? null);
+		}
+	});
+
+	localStorage.setItem("situationboard-widgets", JSON.stringify(userWidgets));
+}
+
 async function getWidgets() {
 	const url = "widgets.json";
-
 	try {
 		const response = await fetch(url);
-
 		if (!response.ok) {
 			throw new Error(`Response status: ${response.status}`);
 		}
-
 		widgetsJSON = await response.json();
-
 		console.log(widgetsJSON);
 		return widgetsJSON;
 	} catch (error) {
@@ -72,20 +108,10 @@ getWidgets().then(() => {
 			</div>
 			<span class="widget-add-div-name">${obj.name}</span>
 			<button class="add-widget-button"></button>
-		`; // the html comment forces prettier to format this as html
+		`;
 		widgetAddDiv.style = `border-width: 2px; border-color: gray; border-style: solid; height: 40px; display: flex; align-items: center;`;
 		widgetsList.appendChild(widgetAddDiv);
 	}
 });
 
-// START PUTTING IN WIDGETS ON MAIN SCREEN
-function updateLocalStorage() {
-	localStorage.setItem("situationboard-widgets", userWidgets);
-	return new Promise((resolve) => setTimeout(resolve, 1000));
-}
-(async () => {
-	while (true) {
-		await updateLocalStorage();
-	}
-})();
-// console.log("this should run!");
+reconcile();

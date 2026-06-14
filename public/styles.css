@@ -119,3 +119,10 @@ input[type="search"] {
 	outline: none;
 	cursor: pointer;
 }
+
+#catpic-image {
+	width: 10rem;
+	height: auto;
+	max-height: 12rem;
+	cursor: zoom-in;
+}
