@@ -1,27 +1,22 @@
 async function initCatpic(container) {
 	container.innerHTML = /* HTML */ `
-		<img id="catpic-image" />
-		<button id="refresh-catpic">New image</button>
 		<div class="widget-controls">
 			<button
-				class="move-left"
+				class="widget-control move-left"
 				title="Move left"
-			>
-				◀
-			</button>
+			></button>
 			<button
-				class="move-right"
+				class="widget-control move-right"
 				title="Move right"
-			>
-				▶
-			</button>
+			></button>
 			<button
-				class="delete-widget"
+				class="widget-control delete-widget"
 				title="Delete"
-			>
-				🗑
-			</button>
+			></button>
 		</div>
+		<h3>Cat picture</h3>
+		<img id="catpic-image" />
+		<button id="refresh-catpic">New image</button>
 	`;
 	const refreshCatpic = container.querySelector("#refresh-catpic");
 	const catpicImage = container.querySelector("#catpic-image");

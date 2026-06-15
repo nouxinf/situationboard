@@ -145,8 +145,7 @@ getWidgets().then(() => {
 			<span class="widget-add-div-name">${obj.name}</span>
 			<button class="add-widget-button"></button>
 		`;
-		widgetAddDiv.style = `border-width: 2px; border-color: gray; border-style: solid; height: 40px; display: flex; align-items: center;`;
-
+		widgetAddDiv.classList = "widget-add-div";
 		// attach click handler to add a new instance of this widget type
 		const button = widgetAddDiv.querySelector(".add-widget-button");
 		button.addEventListener("click", () => {

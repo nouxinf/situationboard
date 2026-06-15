@@ -1,22 +1,24 @@
 {
-  "name": "situationboard",
-  "version": "1.0.0",
-  "description": "Monitor the situation",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nouxinf/situationboard.git"
-  },
-  "author": "nouxinf",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nouxinf/situationboard/issues"
-  },
-  "homepage": "https://github.com/nouxinf/situationboard#readme",
-  "dependencies": {
-    "express": "^5.2.1"
-  }
+	"name": "situationboard",
+	"version": "1.0.0",
+	"description": "Monitor the situation",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nouxinf/situationboard.git"
+	},
+	"author": "nouxinf",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/nouxinf/situationboard/issues"
+	},
+	"homepage": "https://github.com/nouxinf/situationboard#readme",
+	"dependencies": {
+		"dotenv": "^17.4.2",
+		"express": "^5.2.1"
+	},
+	"type": "module"
 }

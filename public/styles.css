@@ -35,6 +35,8 @@
 .real-widget {
 	border-color: rgb(128, 128, 128);
 	border-style: solid;
+	position: relative;
+	overflow: scroll;
 }
 
 #widgets {
@@ -146,4 +148,48 @@ input[type="search"] {
 }
 #catpic-zoom::backdrop {
 	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.widget-controls {
+	display: flex;
+	flex-wrap: wrap;
+	top: 0;
+	right: 0;
+	position: absolute;
+	z-index: 2;
+}
+
+.widget-control {
+	border-top-right-radius: 0px;
+	width: 22px;
+	height: 22px;
+}
+
+.move-left {
+	background: url("icons/arrow-left.svg") center no-repeat;
+	border-bottom-left-radius: 5px;
+	cursor: w-resize;
+}
+
+.move-right {
+	background: url("icons/arrow-right.svg") center no-repeat;
+	cursor: e-resize;
+}
+
+.delete-widget {
+	background: url("icons/delete.svg") center no-repeat;
+	cursor: pointer;
+}
+
+#widgets-list {
+	margin-top: 1rem;
+}
+
+.widget-add-div {
+	border-width: 2px;
+	border-color: gray;
+	border-style: solid;
+	height: 40px;
+	display: flex;
+	align-items: center;
 }
