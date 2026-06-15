@@ -2,6 +2,26 @@ async function initCatpic(container) {
 	container.innerHTML = /* HTML */ `
 		<img id="catpic-image" />
 		<button id="refresh-catpic">New image</button>
+		<div class="widget-controls">
+			<button
+				class="move-left"
+				title="Move left"
+			>
+				◀
+			</button>
+			<button
+				class="move-right"
+				title="Move right"
+			>
+				▶
+			</button>
+			<button
+				class="delete-widget"
+				title="Delete"
+			>
+				🗑
+			</button>
+		</div>
 	`;
 	const refreshCatpic = container.querySelector("#refresh-catpic");
 	const catpicImage = container.querySelector("#catpic-image");
@@ -14,6 +34,17 @@ async function initCatpic(container) {
 		zoomedCatpicImage.src = catpicImage.src;
 		zoomedCatpicDialog.showModal();
 	});
+	const instanceId = container.dataset.instanceId; // set during creation in reconcile()
+	// attach event listeners to these control buttons
+	container
+		.querySelector(".move-left")
+		.addEventListener("click", () => moveWidgetLeft(instanceId));
+	container
+		.querySelector(".move-right")
+		.addEventListener("click", () => moveWidgetRight(instanceId));
+	container
+		.querySelector(".delete-widget")
+		.addEventListener("click", () => deleteWidget(instanceId));
 	await refreshImage(catpicImage);
 }
 async function refreshImage(imgEl) {
