@@ -2,6 +2,10 @@
 	font-family: "Inter", sans-serif;
 }
 
+.monospace {
+	font-family: "JetBrains Mono", monospace;
+}
+
 #new-widget {
 	position: relative;
 	display: flex;
@@ -192,4 +196,33 @@ input[type="search"] {
 	height: 40px;
 	display: flex;
 	align-items: center;
+}
+
+.oilpricecurrency {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.minor-text {
+	color: gray;
+	font-size: 15px;
+}
+
+.no-top-margin {
+	margin-top: 0;
+}
+
+.no-bottom-margin {
+	margin-bottom: 0;
+}
+
+.tooltip {
+	cursor: help !important;
+	text-decoration: underline dotted;
+}
+
+.oilpricecurrency > img {
+	position: absolute;
+	height: 30px;
+	width: auto;
 }

@@ -5,5 +5,12 @@
 		"colour": "green",
 		"description": "A random cat pic",
 		"id": "catpic"
+	},
+	{
+		"name": "Oil price",
+		"icon": "oil.svg",
+		"colour": "chocolate",
+		"description": "Price of Oil",
+		"id": "oilprice"
 	}
 ]

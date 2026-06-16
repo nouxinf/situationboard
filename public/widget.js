@@ -44,6 +44,7 @@ if (localStorage.getItem("situationboard-widgets") == null) {
 
 const widgetRegistry = {
 	catpic: { init: initCatpic, destroy: destroyCatpic },
+	oilprice: { init: initOilprice, destroy: destroyOilprice },
 };
 
 const widgetElements = new Map(); // key: instanceId, value: container div

@@ -1,3 +1,10 @@
+let refreshHandler,
+	zoomHandler,
+	moveLeftHandler,
+	moveRightHandler,
+	deleteHandler;
+let currentImgEl;
+
 async function initCatpic(container) {
 	container.innerHTML = /* HTML */ `
 		<div class="widget-controls">
@@ -22,24 +29,30 @@ async function initCatpic(container) {
 	const catpicImage = container.querySelector("#catpic-image");
 	const zoomedCatpicImage = document.getElementById("zoomed-catpic");
 	const zoomedCatpicDialog = document.getElementById("catpic-zoom");
-	refreshCatpic.addEventListener("click", () => {
-		refreshImage(catpicImage);
-	});
-	catpicImage.addEventListener("click", () => {
+	refreshHandler = () => refreshImage(catpicImage);
+	zoomHandler = () => {
 		zoomedCatpicImage.src = catpicImage.src;
 		zoomedCatpicDialog.showModal();
-	});
-	const instanceId = container.dataset.instanceId; // set during creation in reconcile()
-	// attach event listeners to these control buttons
+	};
+
+	refreshCatpic.addEventListener("click", refreshHandler);
+	catpicImage.addEventListener("click", zoomHandler);
+
+	const instanceId = container.dataset.instanceId;
+	moveLeftHandler = () => moveWidgetLeft(instanceId);
+	moveRightHandler = () => moveWidgetRight(instanceId);
+	deleteHandler = () => deleteWidget(instanceId);
+
 	container
 		.querySelector(".move-left")
-		.addEventListener("click", () => moveWidgetLeft(instanceId));
+		.addEventListener("click", moveLeftHandler);
 	container
 		.querySelector(".move-right")
-		.addEventListener("click", () => moveWidgetRight(instanceId));
+		.addEventListener("click", moveRightHandler);
 	container
 		.querySelector(".delete-widget")
-		.addEventListener("click", () => deleteWidget(instanceId));
+		.addEventListener("click", deleteHandler);
+
 	await refreshImage(catpicImage);
 }
 async function refreshImage(imgEl) {
@@ -51,4 +64,30 @@ async function refreshImage(imgEl) {
 	imgEl.src = URL.createObjectURL(blob);
 }
 
-function destroyCatpic(container) {}
+function destroyCatpic(container) {
+	if (currentImgEl?.src) {
+		URL.revokeObjectURL(currentImgEl.src);
+	}
+	// remove listeners to save memory
+	const refreshCatpic = container.querySelector("#refresh-catpic");
+	const catpicImage = container.querySelector("#catpic-image");
+	refreshCatpic?.removeEventListener("click", refreshHandler);
+	catpicImage?.removeEventListener("click", zoomHandler);
+	container
+		.querySelector(".move-left")
+		?.removeEventListener("click", moveLeftHandler);
+	container
+		.querySelector(".move-right")
+		?.removeEventListener("click", moveRightHandler);
+	container
+		.querySelector(".delete-widget")
+		?.removeEventListener("click", deleteHandler);
+
+	refreshHandler =
+		zoomHandler =
+		moveLeftHandler =
+		moveRightHandler =
+		deleteHandler =
+			null;
+	currentImgEl = null;
+}
