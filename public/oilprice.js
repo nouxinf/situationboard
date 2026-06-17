@@ -14,8 +14,9 @@ function initOilprice(container) {
 		}
 	}
 	getOilData().then(() => {
-		let lastUpdatedDate = new Date(data.data.updated_at);
-		let readableDate = `${lastUpdatedDate.getHours()}:${lastUpdatedDate.getMinutes()} ${lastUpdatedDate.getDate()} ${lastUpdatedDate.toLocaleString("default", { month: "long" })} ${lastUpdatedDate.getFullYear()}`;
+		// let lastUpdatedDate = new Date(data.data.updated_at);
+		// let readableDate = `${lastUpdatedDate.getHours()}:${lastUpdatedDate.getMinutes()} ${lastUpdatedDate.getDate()} ${lastUpdatedDate.toLocaleString("default", { month: "long" })} ${lastUpdatedDate.getFullYear()}`;
+		console.log(data.response.data[0].value);
 		container.innerHTML = /* HTML */ `
 			<div class="widget-controls">
 				<button
@@ -32,21 +33,23 @@ function initOilprice(container) {
 				></button>
 			</div>
 			<h2 class="monospace oilpricecurrency">
-				${data.data.formatted}<img src="icons/oil.svg" />
+				${data.response.data[0].value}<img src="icons/oil.svg" />
 			</h2>
 
-			<span class="monospace minor-text">${data.data.code}</span>
+			<span class="monospace minor-text"
+				>${data.response.data[0]["product-name"]}</span
+			>
 			<p class="no-top-margin no-bottom-margin">
 				Last updated
 				<span
 					class="tooltip"
-					title="In your time zone. Due to API costs, this public instance only updates every 7 hours."
-					>${readableDate}</span
-				>
+					title="Due to limitations in the EIA API oil price is updated infrequently"
+					>${data.response.data[0].period}
+				</span>
 			</p>
 			<details>
 				<summary>Open raw data</summary>
-				<code>${JSON.stringify(data, null, 2)}</code>
+				<code>${JSON.stringify(data.response.data[0], null, 2)}</code>
 			</details>
 		`;
 		console.log("added html");

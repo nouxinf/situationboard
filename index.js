@@ -5,7 +5,7 @@ const port = 3055;
 import oilPriceRoutes from "./routes/oilprice.js";
 
 app.use(express.static("public"));
-app.use("/api/oilprice", oilPriceRoutes);
+app.use("/", oilPriceRoutes);
 
 app.listen(port, () => {
 	console.log(`Situationboard listening on port ${port}`);
