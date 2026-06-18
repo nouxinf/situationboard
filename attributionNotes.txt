@@ -3,3 +3,5 @@ Icons by fontawesome
 Catpics from cataas.com
 Oil price from EIA
 Loading GIF icon licensed under CC-BY-SA 4.0 International, made by Skorp24
+Markedjs
+DOMpurify

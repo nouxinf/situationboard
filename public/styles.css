@@ -132,6 +132,17 @@ input[type="search"] {
 	cursor: pointer;
 }
 
+.info-widget-button {
+	position: absolute;
+	right: 50px;
+	height: 28px;
+	width: 28px;
+	background: url("icons/info.svg") center no-repeat;
+	border-radius: 10px;
+	outline: none;
+	cursor: pointer;
+}
+
 .image-loader {
 	width: 10rem;
 	aspect-ratio: 1 / 1;
@@ -234,4 +245,9 @@ input[type="search"] {
 	position: absolute;
 	height: 30px;
 	width: auto;
+}
+
+.widget-description {
+	width: 50vw;
+	height: 80vh;
 }

@@ -144,6 +144,17 @@ getWidgets().then(() => {
 				></div>
 			</div>
 			<span class="widget-add-div-name">${obj.name}</span>
+			<button
+				onclick="document.getElementById('${obj.id}-description').showModal()"
+				class="info-widget-button"
+			></button>
+			<dialog
+				id="${obj.id}-description"
+				class="widget-description"
+				closedby="any"
+			>
+				<p>${DOMPurify.sanitize(marked.parse(obj.description))}</p>
+			</dialog>
 			<button class="add-widget-button"></button>
 		`;
 		widgetAddDiv.classList = "widget-add-div";

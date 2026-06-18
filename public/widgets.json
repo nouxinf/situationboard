@@ -3,14 +3,14 @@
 		"name": "Cat picture",
 		"icon": "cat.svg",
 		"colour": "green",
-		"description": "A random cat pic",
+		"description": "# Cat picture\nUses Cat-as-a-service (cataas.com) to get a random cat picture out of their collection of 1987 cats. [Go buy them a coffee!](https://buymeacoffee.com/kevinbalicot)",
 		"id": "catpic"
 	},
 	{
 		"name": "Oil price",
 		"icon": "oil.svg",
 		"colour": "chocolate",
-		"description": "Price of Oil",
+		"description": "# Oil Price\nFetches Oil Prices from the EIA, U.S. Energy Information Administration. Data is updated every 3 or so days. [Go buy them a coffee!](https://www.pay.gov/public/form/start/23779454) (jk)",
 		"id": "oilprice"
 	}
 ]
