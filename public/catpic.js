@@ -22,11 +22,14 @@ async function initCatpic(container) {
 			></button>
 		</div>
 		<h3>Cat picture</h3>
-		<img id="catpic-image" />
+		<div class="image-loader">
+			<img id="catpic-image" />
+		</div>
 		<button id="refresh-catpic">New image</button>
 	`;
 	const refreshCatpic = container.querySelector("#refresh-catpic");
 	const catpicImage = container.querySelector("#catpic-image");
+	currentImgEl = catpicImage;
 	const zoomedCatpicImage = document.getElementById("zoomed-catpic");
 	const zoomedCatpicDialog = document.getElementById("catpic-zoom");
 	refreshHandler = () => refreshImage(catpicImage);
@@ -61,6 +64,9 @@ async function refreshImage(imgEl) {
 	});
 	const blob = await res.blob();
 	if (imgEl.src) URL.revokeObjectURL(imgEl.src);
+	imgEl.onload = () => {
+		imgEl.parentElement.style.background = "none";
+	};
 	imgEl.src = URL.createObjectURL(blob);
 }
 

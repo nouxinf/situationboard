@@ -69,4 +69,22 @@ function initOilprice(container) {
 			.addEventListener("click", deleteHandler);
 	});
 }
-function destroyOilprice(container) {}
+function destroyOilprice(container) {
+	refreshCatpic?.removeEventListener("click", refreshHandler);
+	container
+		.querySelector(".move-left")
+		?.removeEventListener("click", moveLeftHandler);
+	container
+		.querySelector(".move-right")
+		?.removeEventListener("click", moveRightHandler);
+	container
+		.querySelector(".delete-widget")
+		?.removeEventListener("click", deleteHandler);
+
+	refreshHandler =
+		zoomHandler =
+		moveLeftHandler =
+		moveRightHandler =
+		deleteHandler =
+			null;
+}
