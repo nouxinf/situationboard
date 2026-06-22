@@ -10,6 +10,20 @@ function generateInstanceId() {
 	return `widget-${nextInstanceId++}`;
 }
 
+function getWidgetData(instanceId) {
+	const widget = userWidgets.find((w) => w.instanceId === instanceId);
+	return widget ? widget.data : {};
+}
+
+function setWidgetData(instanceId, partialData) {
+	userWidgets = userWidgets.map((w) =>
+		w.instanceId === instanceId
+			? { ...w, data: { ...w.data, ...partialData } }
+			: w,
+	);
+	localStorage.setItem("situationboard-widgets", JSON.stringify(userWidgets));
+}
+
 const addNewWidgetHTML = /* HTML */ ` <li>
 	<div
 		id="new-widget"
@@ -27,29 +41,35 @@ const addNewWidgetHTML = /* HTML */ ` <li>
 	</div>
 </li>`;
 
+// load or initialise saved widgets
 if (localStorage.getItem("situationboard-widgets") == null) {
-	userWidgets = [{ instanceId: generateInstanceId(), type: "catpic" }];
+	userWidgets = [
+		{ instanceId: generateInstanceId(), type: "catpic", data: {} },
+	];
 } else {
 	const stored = JSON.parse(localStorage.getItem("situationboard-widgets"));
-	// Migrate old string format if present
+	// migrate old string format if present
 	if (stored.length > 0 && typeof stored[0] === "string") {
 		userWidgets = stored.map((type) => ({
 			instanceId: generateInstanceId(),
 			type,
+			data: {},
 		}));
 	} else {
-		userWidgets = stored;
+		// ensure every widget has a data object
+		userWidgets = stored.map((w) => ({ ...w, data: w.data || {} }));
 	}
 }
 
 const widgetRegistry = {
 	catpic: { init: initCatpic, destroy: destroyCatpic },
 	oilprice: { init: initOilprice, destroy: destroyOilprice },
+	clock: { init: initClock, destroy: destroyClock },
 };
 
 const widgetElements = new Map(); // key: instanceId, value: container div
 
-// Attach listener for the "Add a new widget" button (reused whenever button is recreated)
+// attach listener for the "add a new widget" button
 function attachNewWidgetListener() {
 	const newWidget = document.getElementById("new-widget");
 	if (newWidget) {
@@ -62,6 +82,7 @@ function attachNewWidgetListener() {
 }
 
 async function reconcile() {
+	// remove widgets that no longer exist in userWidgets
 	for (const [instanceId, el] of widgetElements) {
 		const stillExists = userWidgets.some(
 			(w) => w.instanceId === instanceId,
@@ -74,6 +95,7 @@ async function reconcile() {
 		}
 	}
 
+	// add/re‑order widgets
 	userWidgets.forEach((widget, index) => {
 		const { instanceId, type } = widget;
 		let el = widgetElements.get(instanceId);
@@ -88,10 +110,11 @@ async function reconcile() {
 			li.appendChild(el);
 			widgetsContainer.appendChild(li);
 			widgetElements.set(instanceId, el);
+
 			widgetRegistry[type]?.init(el);
 		}
 
-		// move to correct position based on index
+		// move to correct position
 		const children = [...widgetsContainer.children];
 		const currentLi = el.closest("li");
 		if (children[index] !== currentLi) {
@@ -101,13 +124,14 @@ async function reconcile() {
 
 	localStorage.setItem("situationboard-widgets", JSON.stringify(userWidgets));
 
+	// add add widget button
 	if (!document.getElementById("new-widget")) {
 		widgetsContainer.insertAdjacentHTML("beforeend", addNewWidgetHTML);
 		attachNewWidgetListener();
 	}
 }
 
-// fetch available widget definitions from JSON
+// fetch available widget definitions
 async function getWidgets() {
 	const url = "widgets.json";
 	try {
@@ -158,19 +182,21 @@ getWidgets().then(() => {
 			<button class="add-widget-button"></button>
 		`;
 		widgetAddDiv.classList = "widget-add-div";
-		// attach click handler to add a new instance of this widget type
+
 		const button = widgetAddDiv.querySelector(".add-widget-button");
 		button.addEventListener("click", () => {
 			userWidgets.push({
 				instanceId: generateInstanceId(),
 				type: obj.id,
+				data: {},
 			});
-			reconcile(); // immediately update the DOM
+			reconcile();
 		});
 
 		widgetsList.appendChild(widgetAddDiv);
 	}
 });
+
 function deleteWidget(instanceId) {
 	userWidgets = userWidgets.filter((w) => w.instanceId !== instanceId);
 	reconcile();
@@ -179,7 +205,6 @@ function deleteWidget(instanceId) {
 function moveWidgetLeft(instanceId) {
 	const index = userWidgets.findIndex((w) => w.instanceId === instanceId);
 	if (index > 0) {
-		// swap with previous widget
 		[userWidgets[index], userWidgets[index - 1]] = [
 			userWidgets[index - 1],
 			userWidgets[index],
@@ -191,7 +216,6 @@ function moveWidgetLeft(instanceId) {
 function moveWidgetRight(instanceId) {
 	const index = userWidgets.findIndex((w) => w.instanceId === instanceId);
 	if (index < userWidgets.length - 1) {
-		// swap with next widget
 		[userWidgets[index], userWidgets[index + 1]] = [
 			userWidgets[index + 1],
 			userWidgets[index],
@@ -199,6 +223,7 @@ function moveWidgetRight(instanceId) {
 		reconcile();
 	}
 }
-reconcile().then(() => {
-	attachNewWidgetListener();
-});
+
+// run functions
+reconcile();
+attachNewWidgetListener();

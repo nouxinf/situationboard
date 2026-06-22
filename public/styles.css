@@ -109,6 +109,9 @@ input[type="search"] {
 	border-radius: 2px;
 	border-style: solid;
 	margin-left: 3px;
+	justify-content: center;
+	display: flex;
+	align-items: center;
 }
 
 .widget-icon {
@@ -250,4 +253,10 @@ input[type="search"] {
 .widget-description {
 	width: 50vw;
 	height: 80vh;
+}
+
+.clock-time {
+	font-size: 3rem;
+	margin-top: 0.7rem;
+	margin-bottom: 0;
 }

@@ -33,7 +33,7 @@ function initOilprice(container) {
 				></button>
 			</div>
 			<h2 class="monospace oilpricecurrency">
-				${data.response.data[0].value}<img src="icons/oil.svg" />
+				$${data.response.data[0].value}<img src="icons/oil.svg" />
 			</h2>
 
 			<span class="monospace minor-text"

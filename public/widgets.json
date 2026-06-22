@@ -12,5 +12,12 @@
 		"colour": "chocolate",
 		"description": "# Oil Price\nFetches Oil Prices from the EIA, U.S. Energy Information Administration. Data is updated every 3 or so days. [Go buy them a coffee!](https://www.pay.gov/public/form/start/23779454) (jk)",
 		"id": "oilprice"
+	},
+	{
+		"name": "Clock",
+		"icon": "clock.svg",
+		"colour": "lightblue",
+		"description": "# Clock\n",
+		"id": "clock"
 	}
 ]
