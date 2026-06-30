@@ -17,7 +17,14 @@
 		"name": "Clock",
 		"icon": "clock.svg",
 		"colour": "lightblue",
-		"description": "# Clock\n",
+		"description": "# Clock\nShows the current time and date in your time zone",
 		"id": "clock"
+	},
+	{
+		"name": "Weather",
+		"icon": "weather.svg",
+		"colour": "gold",
+		"description": "# Weather\n",
+		"id": "weather"
 	}
 ]

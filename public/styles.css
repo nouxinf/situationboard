@@ -260,3 +260,8 @@ input[type="search"] {
 	margin-top: 0.7rem;
 	margin-bottom: 0;
 }
+
+#map {
+	height: 500px;
+	width: 500px;
+}

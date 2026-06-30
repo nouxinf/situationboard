@@ -66,7 +66,6 @@ function initClock(container) {
 }
 
 function destroyClock(container) {
-	refreshCatpic?.removeEventListener("click", refreshHandler);
 	container
 		.querySelector(".move-left")
 		?.removeEventListener("click", moveLeftHandler);
@@ -77,10 +76,5 @@ function destroyClock(container) {
 		.querySelector(".delete-widget")
 		?.removeEventListener("click", deleteHandler);
 
-	refreshHandler =
-		zoomHandler =
-		moveLeftHandler =
-		moveRightHandler =
-		deleteHandler =
-			null;
+	moveLeftHandler = moveRightHandler = deleteHandler = null;
 }

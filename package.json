@@ -18,7 +18,8 @@
 	"homepage": "https://github.com/nouxinf/situationboard#readme",
 	"dependencies": {
 		"dotenv": "^17.4.2",
-		"express": "^5.2.1"
+		"express": "^5.2.1",
+		"openmeteo": "^1.2.3"
 	},
 	"type": "module"
 }

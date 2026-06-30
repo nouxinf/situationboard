@@ -3,9 +3,11 @@ const app = express();
 const port = 3055;
 
 import oilPriceRoutes from "./routes/oilprice.js";
+import weatherRoutes from "./routes/weather.js";
 
 app.use(express.static("public"));
 app.use("/", oilPriceRoutes);
+app.use("/", weatherRoutes);
 
 app.listen(port, () => {
 	console.log(`Situationboard listening on port ${port}`);

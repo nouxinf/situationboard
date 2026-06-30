@@ -24,6 +24,12 @@
 			rel="stylesheet"
 		/>
 		<link
+			rel="stylesheet"
+			href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+			integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+			crossorigin=""
+		/>
+		<link
 			rel="icon"
 			href="/favicon.svg"
 			type="image/svg+xml"
@@ -54,8 +60,21 @@
 		>
 			<img id="zoomed-catpic" />
 		</dialog>
+		<dialog
+			id="weather-select"
+			closedby="any"
+		>
+			<div id="map"></div>
+			<button id="confirm-weather-select">Confirm Location</button>
+		</dialog>
 		<script src="libs/marked.umd.js"></script>
 		<script src="libs/dompurify.js"></script>
+		<script
+			src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+			integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+			crossorigin=""
+		></script>
+		<script src="weather.js"></script>
 		<script src="clock.js"></script>
 		<script src="catpic.js"></script>
 		<script src="oilprice.js"></script>
