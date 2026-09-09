@@ -3,18 +3,13 @@ import { fetchWeatherApi } from "openmeteo";
 
 const router = express.Router();
 const url = "https://api.open-meteo.com/v1/forecast";
-let lat;
-let lon;
-let getLat = () => {
-	return lat;
-};
-let getLon = () => {
-	return lon;
-};
 
 router.get("/api/weather", async (req, res) => {
-	lat = parseFloat(req.query.lat);
-	lon = parseFloat(req.query.lon);
+	if (!req.query.lat || !req.query.lon) {
+		return res.status(400).json({ error: "lat and lon are required" });
+	}
+	const lat = parseFloat(req.query.lat);
+	const lon = parseFloat(req.query.lon);
 	const tempParams = {
 		latitude: lat,
 		longitude: lon,
@@ -23,9 +18,6 @@ router.get("/api/weather", async (req, res) => {
 		hourly: "temperature_2m,precipitation",
 		daily: "weather_code,temperature_2m_max,temperature_2m_min",
 	};
-	if (!req.query.lat || !req.query.lon) {
-		return res.status(400).json({ error: "lat and lon are required" });
-	}
 	const responses = await fetchWeatherApi(url, tempParams);
 	const response = responses[0];
 
@@ -76,7 +68,7 @@ router.get("/api/weather", async (req, res) => {
 		area && city
 			? `${area}, ${city}`
 			: city || area || nominatimData.address.country;
-	res.json([forecast, nominatimData.address.city]);
+	res.json([forecast, place]);
 });
 
 export default router;

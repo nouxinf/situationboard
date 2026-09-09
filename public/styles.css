@@ -265,3 +265,9 @@ input[type="search"] {
 	height: 500px;
 	width: 500px;
 }
+.weather-location {
+	margin-top: 0;
+	display: inline-block;
+	width: 73%;
+	word-break: break-all;
+}
