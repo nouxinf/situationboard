@@ -22,6 +22,7 @@ document
 				updateWeather(container, widgetData.weather);
 			}
 		});
+		window.location.reload();
 	});
 
 function initWeather(container) {
