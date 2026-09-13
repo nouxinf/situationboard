@@ -67,6 +67,17 @@
 			<div id="map"></div>
 			<button id="confirm-weather-select">Confirm Location</button>
 		</dialog>
+		<dialog
+			id="weather-settings"
+			closedby="any"
+		>
+			<h2>Weather widget settings</h2>
+			<select id="temp-units">
+				<option value="celsius">Celsius</option>
+				<option value="fahrenheit">Fahrenheit</option>
+			</select>
+			<button id="save-weather-settings">Save</button>
+		</dialog>
 		<script src="libs/marked.umd.js"></script>
 		<script src="libs/dompurify.js"></script>
 		<script

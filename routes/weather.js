@@ -21,8 +21,19 @@ router.get("/api/weather", async (req, res) => {
 	const responses = await fetchWeatherApi(url, tempParams);
 	const response = responses[0];
 
+	const current = response.current();
 	const daily = response.daily();
 	const utcOffsetSeconds = response.utcOffsetSeconds();
+
+	const currentData = {
+		time: new Date(
+			(Number(current.time()) + utcOffsetSeconds) * 1000,
+		).toISOString(),
+		temperature: current.variables(0).value(),
+		weatherCode: current.variables(1).value(),
+		windSpeed: current.variables(2).value(),
+		windDirection: current.variables(3).value(),
+	};
 
 	const range = (start, stop, step) =>
 		Array.from(
@@ -68,7 +79,7 @@ router.get("/api/weather", async (req, res) => {
 		area && city
 			? `${area}, ${city}`
 			: city || area || nominatimData.address.country;
-	res.json([forecast, place]);
+	res.json({ current: currentData, forecast, place });
 });
 
 export default router;

@@ -4,6 +4,26 @@ let activeInstanceId = null;
 let activeContainer = null;
 let confirmListenerAttached = false;
 
+document
+	.getElementById("save-weather-settings")
+	.addEventListener("click", () => {
+		localStorage.setItem(
+			"temp-units",
+			document.getElementById("temp-units").value === "fahrenheit"
+				? "F"
+				: "C",
+		);
+
+		document.querySelectorAll(".weather-widget").forEach((container) => {
+			const instanceId = container.dataset.instanceId;
+			const widgetData = getWidgetData(instanceId);
+
+			if (widgetData.weather) {
+				updateWeather(container, widgetData.weather);
+			}
+		});
+	});
+
 function initWeather(container) {
 	async function getWeatherData(lat, lon) {
 		const url = `/api/weather?lat=${lat}&lon=${lon}`;
@@ -33,24 +53,41 @@ function initWeather(container) {
 					title="Move right"
 				></button>
 				<button
+					class="widget-control settings-icon"
+					title="Settings"
+				></button>
+				<button
 					class="widget-control delete-widget"
 					title="Delete"
 				></button>
 			</div>
 
-			<span
-				class="weather-location"
-				lang="en"
-				>Loading...</span
+			<strong
+				><span
+					class="weather-location"
+					lang="en"
+					>Loading...</span
+				></strong
 			>
-			<button class="pick-location-btn">Pick location</button>
-			<pre class="raw-weather-data"></pre>
+			<img
+				src="icons/pencil.svg"
+				class="pick-location-btn"
+			/>
+			<h2 class="monospace oilpricecurrency temperature"></h2>
+
+			<details>
+				<summary>View raw data</summary>
+				<pre class="raw-weather-data"></pre>
+			</details>
 		`;
 	const instanceId = container.dataset.instanceId;
 
 	moveLeftHandler = () => moveWidgetLeft(instanceId);
 	moveRightHandler = () => moveWidgetRight(instanceId);
 	deleteHandler = () => deleteWidget(instanceId);
+	settingsHandler = () =>
+		document.getElementById("weather-settings").showModal();
+
 	const weatherSelectDialog = document.getElementById("weather-select");
 	var map;
 
@@ -63,6 +100,9 @@ function initWeather(container) {
 	container
 		.querySelector(".delete-widget")
 		.addEventListener("click", deleteHandler);
+	container
+		.querySelector(".settings-icon")
+		.addEventListener("click", settingsHandler);
 	container
 		.querySelector(".pick-location-btn")
 		.addEventListener("click", () => {
@@ -101,11 +141,12 @@ function initWeather(container) {
 				console.log(markedLatLon);
 			} else {
 				getWeatherData(markedLatLon[0], markedLatLon[1]).then(
-					(data) => {
+					(weatherData) => {
 						setWidgetData(activeInstanceId, {
 							location: markedLatLon,
+							weather: weatherData, // Cache the data here
 						});
-						updateWeather(activeContainer, data);
+						updateWeather(activeContainer, weatherData);
 					},
 				);
 			}
@@ -116,9 +157,15 @@ function initWeather(container) {
 		data.location != null &&
 		(!Array.isArray(data.location) || data.location.length > 0)
 	) {
-		getWeatherData(data.location[0], data.location[1]).then((data) => {
-			updateWeather(container, data);
-		});
+		getWeatherData(data.location[0], data.location[1]).then(
+			(weatherData) => {
+				setWidgetData(instanceId, {
+					...data,
+					weather: weatherData,
+				});
+				updateWeather(container, weatherData);
+			},
+		);
 	}
 }
 function updateWeather(container, data) {
@@ -126,8 +173,23 @@ function updateWeather(container, data) {
 	let stringifiedData = JSON.stringify(data);
 	const rawData = container.querySelector(".raw-weather-data");
 	const locationText = container.querySelector(".weather-location");
+	const tempText = container.querySelector(".temperature");
 	rawData.innerText = stringifiedData;
-	locationText.innerText = data[1];
+	locationText.innerText = data.place;
+	const storedUnits = localStorage.getItem("temp-units");
+	const fallbackUnits =
+		document.getElementById("temp-units").value === "fahrenheit"
+			? "F"
+			: "C";
+	const units = storedUnits ?? fallbackUnits;
+
+	const temperature =
+		units === "F"
+			? Math.round((data.current.temperature * 1.8 + 32) * 10) / 10
+			: Math.round(data.current.temperature * 10) / 10;
+	tempText.innerText = `${temperature}°${units}`;
+	console.log(Math.round(data.current.temperature * 10) / 10);
+	console.log(data);
 }
 function destroyWeather(container) {
 	container
@@ -139,6 +201,8 @@ function destroyWeather(container) {
 	container
 		.querySelector(".delete-widget")
 		?.removeEventListener("click", deleteHandler);
-
+	container
+		.querySelector(".settings-icon")
+		?.removeEventListener("click", settingsHandler);
 	moveLeftHandler = moveRightHandler = deleteHandler = null;
 }

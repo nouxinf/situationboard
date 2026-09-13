@@ -203,6 +203,11 @@ input[type="search"] {
 	cursor: e-resize;
 }
 
+.settings-icon {
+	background: url("icons/settings.svg") center no-repeat;
+	cursor: pointer;
+}
+
 .delete-widget {
 	background: url("icons/delete.svg") center no-repeat;
 	cursor: pointer;
@@ -265,9 +270,16 @@ input[type="search"] {
 	height: 500px;
 	width: 500px;
 }
+
 .weather-location {
 	margin-top: 0;
 	display: inline-block;
-	width: 73%;
 	word-break: break-all;
+	margin-top: 1.2rem;
+}
+
+.pick-location-btn {
+	height: 15px;
+	width: auto;
+	cursor: pointer;
 }
