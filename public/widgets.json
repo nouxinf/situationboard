@@ -24,7 +24,7 @@
 		"name": "Weather",
 		"icon": "weather.svg",
 		"colour": "gold",
-		"description": "# Weather\n",
+		"description": "# Weather\n Weather data by Open-Meteo.com (https://open-meteo.com)\n Geocoding data (C) OpenStreetMap contributors (https://www.openstreetmap.org/copyright)",
 		"id": "weather"
 	}
 ]
