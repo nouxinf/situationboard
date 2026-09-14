@@ -137,11 +137,6 @@ function initWeather(container) {
 				class="pick-location-btn"
 			/>
 			<h2 class="monospace oilpricecurrency temperature"></h2>
-
-			<details>
-				<summary>View raw data</summary>
-				<pre class="raw-weather-data"></pre>
-			</details>
 			<table class="forecast-table">
 				<tr>
 					<td>Today</td>
@@ -263,12 +258,9 @@ function initWeather(container) {
 }
 function updateWeather(container, data) {
 	console.log("weather updated");
-	let stringifiedData = JSON.stringify(data);
-	const rawData = container.querySelector(".raw-weather-data");
 	const locationText = container.querySelector(".weather-location");
 	const tempText = container.querySelector(".temperature");
 	console.log(data);
-	rawData.innerText = stringifiedData;
 	locationText.innerText = data.place;
 	const storedUnits = localStorage.getItem("temp-units");
 	const fallbackUnits =
@@ -305,8 +297,8 @@ function updateWeather(container, data) {
 			units === "F"
 				? Math.round((data.forecast[i].maxTemp * 1.8 + 32) * 10) / 10
 				: Math.round(data.forecast[i].maxTemp * 10) / 10;
-		itemsInRow.children.item(1).textContent =
-			`${forecastMinTemp}-${forecastMaxTemp}`;
+		itemsInRow.children.item(1).innerHTML =
+			`<img src="icons/wmo/${weatherCodeToIcon(data.forecast[i].weatherCode)}"/>${forecastMinTemp}-${forecastMaxTemp}°${units}`;
 	}
 }
 function destroyWeather(container) {
