@@ -4,6 +4,34 @@ let activeInstanceId = null;
 let activeContainer = null;
 let confirmListenerAttached = false;
 
+function toTitleCase(str) {
+	return str.replace(
+		/\w\S*/g,
+		(text) =>
+			text.charAt(0).toUpperCase() + text.substring(1).toLowerCase(),
+	);
+}
+
+function getDayLabel(date, locale = navigator.language) {
+	const now = new Date();
+	const target = new Date(date);
+
+	const diff = Math.round(
+		(Date.UTC(target.getFullYear(), target.getMonth(), target.getDate()) -
+			Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())) /
+			86400000,
+	);
+
+	const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
+	const dtf = new Intl.DateTimeFormat(locale, { weekday: "long" });
+
+	if (diff === 0 || diff === 1) {
+		return toTitleCase(rtf.format(diff, "day"));
+	}
+
+	return toTitleCase(dtf.format(target));
+}
+
 document
 	.getElementById("save-weather-settings")
 	.addEventListener("click", () => {
@@ -80,6 +108,36 @@ function initWeather(container) {
 				<summary>View raw data</summary>
 				<pre class="raw-weather-data"></pre>
 			</details>
+			<table class="forecast-table">
+				<tr>
+					<td>Today</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Tomorrow</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
 		`;
 	const instanceId = container.dataset.instanceId;
 
@@ -191,6 +249,20 @@ function updateWeather(container, data) {
 	tempText.innerText = `${temperature}°${units}`;
 	console.log(Math.round(data.current.temperature * 10) / 10);
 	console.log(data);
+	const date = new Date();
+	// forecast
+	for (let i = 0; i < 7; i++) {
+		let rows =
+			container.querySelector(".forecast-table").firstElementChild
+				.children;
+		let itemsInRow = rows.item(i);
+		// console.log(rows);
+		// console.log(itemsInRow);
+		console.log(itemsInRow.children.item(0));
+
+		itemsInRow.children.item(0).textContent = getDayLabel(date);
+		date.setDate(date.getDate() + 1);
+	}
 }
 function destroyWeather(container) {
 	container
