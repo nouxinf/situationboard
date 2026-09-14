@@ -26,5 +26,12 @@
 		"colour": "gold",
 		"description": "# Weather\n Weather data by Open-Meteo.com (https://open-meteo.com)\n Geocoding data (C) OpenStreetMap contributors (https://www.openstreetmap.org/copyright)",
 		"id": "weather"
+	},
+	{
+		"name": "xkcd",
+		"icon": "xkcd.svg",
+		"colour": "grey",
+		"description": "# XKCD\n",
+		"id": "xkcd"
 	}
 ]
