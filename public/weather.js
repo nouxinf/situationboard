@@ -32,6 +32,40 @@ function getDayLabel(date, locale = navigator.language) {
 	return toTitleCase(dtf.format(target));
 }
 
+function weatherCodeToIcon(weatherCode) {
+	const weatherCodeMap = {
+		0: 0, // clear
+		1: 1, // mostly clear
+		2: 2, // partly cloudy
+		3: 3, // overcast/cloudy
+		45: 4, // fog
+		48: 5, // icy fog
+		51: 6, // light drizzle
+		53: 6, // drizzle
+		55: 6, // heavy drizzle
+		80: 7, // light showers
+		81: 7, // showers
+		82: 7, // heavy showers
+		61: 8, // light rain
+		63: 8, // rain
+		65: 8, // heavy rain
+		56: 9, // light icy drizzle
+		57: 9, // icy drizzle
+		66: 10, // light icy rain
+		67: 10, // icy rain
+		77: 11, // snow grains
+		71: 12, // light snow
+		85: 12, // light snow showers
+		73: 13, // snow
+		75: 14, // heavy snow
+		86: 14, // snow showers
+		95: 15, // thunder storm
+		96: 16, // thunder storm + light hail
+		99: 16, // thunder storm + hail
+	};
+	return `sprite_${String(weatherCodeMap[weatherCode]).padStart(2, "0") ?? 17}.png`;
+}
+
 document
 	.getElementById("save-weather-settings")
 	.addEventListener("click", () => {
@@ -233,6 +267,7 @@ function updateWeather(container, data) {
 	const rawData = container.querySelector(".raw-weather-data");
 	const locationText = container.querySelector(".weather-location");
 	const tempText = container.querySelector(".temperature");
+	console.log(data);
 	rawData.innerText = stringifiedData;
 	locationText.innerText = data.place;
 	const storedUnits = localStorage.getItem("temp-units");
@@ -246,9 +281,9 @@ function updateWeather(container, data) {
 		units === "F"
 			? Math.round((data.current.temperature * 1.8 + 32) * 10) / 10
 			: Math.round(data.current.temperature * 10) / 10;
-	tempText.innerText = `${temperature}°${units}`;
+	tempText.innerHTML = `${temperature}°${units}<img src="icons/wmo/${weatherCodeToIcon(data.current.weatherCode)}"/>`;
 	console.log(Math.round(data.current.temperature * 10) / 10);
-	console.log(data);
+
 	const date = new Date();
 	// forecast
 	for (let i = 0; i < 7; i++) {
@@ -258,10 +293,20 @@ function updateWeather(container, data) {
 		let itemsInRow = rows.item(i);
 		// console.log(rows);
 		// console.log(itemsInRow);
-		console.log(itemsInRow.children.item(0));
+		// console.log(itemsInRow.children.item(0));
 
 		itemsInRow.children.item(0).textContent = getDayLabel(date);
 		date.setDate(date.getDate() + 1);
+		let forecastMinTemp =
+			units === "F"
+				? Math.round((data.forecast[i].minTemp * 1.8 + 32) * 10) / 10
+				: Math.round(data.forecast[i].minTemp * 10) / 10;
+		let forecastMaxTemp =
+			units === "F"
+				? Math.round((data.forecast[i].maxTemp * 1.8 + 32) * 10) / 10
+				: Math.round(data.forecast[i].maxTemp * 10) / 10;
+		itemsInRow.children.item(1).textContent =
+			`${forecastMinTemp}-${forecastMaxTemp}`;
 	}
 }
 function destroyWeather(container) {
