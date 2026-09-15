@@ -95,7 +95,10 @@ function initXkcd(container) {
 		if (!currentData) {
 			return;
 		}
-		const previousNum = currentData.num - 1;
+		let previousNum = currentData.num - 1;
+		if (previousNum < 1) {
+			previousNum = latestNum;
+		}
 		const previousData = await getComicByNum(previousNum);
 
 		renderComic(previousData);
