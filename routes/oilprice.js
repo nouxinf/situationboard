@@ -15,7 +15,7 @@ async function fetchOil() {
 		const data = await response.json();
 		cachedOilData = data;
 		lastFetchTime = Date.now();
-		console.log("Oil price data updated");
+		// console.log("Oil price data updated");
 		return data;
 	} catch (error) {
 		console.error("Failed to fetch oil price:", error);

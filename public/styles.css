@@ -283,3 +283,7 @@ input[type="search"] {
 	width: auto;
 	cursor: pointer;
 }
+
+#comic-img {
+	max-width: 100%;
+}

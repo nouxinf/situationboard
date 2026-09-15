@@ -15,7 +15,10 @@ function initXkcd(container) {
 				title="Delete"
 			></button>
 		</div>
-		<p>test</p>
+		<img
+			src=""
+			id="comic-img"
+		/>
 	`;
 	const instanceId = container.dataset.instanceId;
 	moveLeftHandler = () => moveWidgetLeft(instanceId);
@@ -33,7 +36,7 @@ function initXkcd(container) {
 		.addEventListener("click", deleteHandler);
 
 	async function getCurrentComic() {
-		const url = "https://xkcd.com/info.0.json";
+		const url = "/api/xkcd/current";
 		try {
 			const response = await fetch(url, {
 				method: "GET",
@@ -43,12 +46,16 @@ function initXkcd(container) {
 			}
 
 			const result = await response.json();
-			console.log(result);
+			return result;
 		} catch (error) {
 			console.error(error.message);
+			throw error;
 		}
 	}
-	getCurrentComic();
+	getCurrentComic().then((currentData) => {
+		console.log(currentData);
+		container.querySelector("#comic-img").src = currentData.img;
+	});
 }
 
 function destroyXkcd(container) {
