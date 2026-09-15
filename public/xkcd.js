@@ -22,10 +22,12 @@ function initXkcd(container) {
 		/>
 		<p><i class="alt-text"></i></p>
 		<button class="previous-button">Previous</button
-		><button class="latest-button">Latest</button><button>Next</button>
+		><button class="latest-button">Latest</button
+		><button class="next-button">Next</button>
 	`;
 
 	let currentData = null;
+	let latestNum = null;
 
 	const instanceId = container.dataset.instanceId;
 	moveLeftHandler = () => moveWidgetLeft(instanceId);
@@ -60,6 +62,7 @@ function initXkcd(container) {
 			}
 
 			const result = await response.json();
+			latestNum = result.num;
 			return result;
 		} catch (error) {
 			console.error(error.message);
@@ -98,9 +101,24 @@ function initXkcd(container) {
 		renderComic(previousData);
 	}
 
+	async function loadNextComic() {
+		if (!currentData) {
+			return;
+		}
+		let nextNum = currentData.num + 1;
+		if (nextNum > latestNum) {
+			nextNum = 1;
+		}
+		nextData = await getComicByNum(nextNum);
+		renderComic(nextData);
+	}
+
 	container
 		.querySelector(".previous-button")
 		.addEventListener("click", loadPreviousComic);
+	container
+		.querySelector(".next-button")
+		.addEventListener("click", loadNextComic);
 }
 
 function destroyXkcd(container) {
