@@ -15,11 +15,18 @@ function initXkcd(container) {
 				title="Delete"
 			></button>
 		</div>
+		<h3 class="comic-num"></h3>
 		<img
 			src=""
-			id="comic-img"
+			class="comic-img"
 		/>
+		<p><i class="alt-text"></i></p>
+		<button class="previous-button">Previous</button
+		><button class="latest-button">Latest</button><button>Next</button>
 	`;
+
+	let currentData = null;
+
 	const instanceId = container.dataset.instanceId;
 	moveLeftHandler = () => moveWidgetLeft(instanceId);
 	moveRightHandler = () => moveWidgetRight(instanceId);
@@ -34,6 +41,13 @@ function initXkcd(container) {
 	container
 		.querySelector(".delete-widget")
 		.addEventListener("click", deleteHandler);
+
+	function renderComic(data) {
+		currentData = data;
+		container.querySelector(".comic-img").src = data.img;
+		container.querySelector(".comic-num").textContent = `#${data.num}`;
+		container.querySelector(".alt-text").textContent = data.alt;
+	}
 
 	async function getCurrentComic() {
 		const url = "/api/xkcd/current";
@@ -52,10 +66,41 @@ function initXkcd(container) {
 			throw error;
 		}
 	}
-	getCurrentComic().then((currentData) => {
-		console.log(currentData);
-		container.querySelector("#comic-img").src = currentData.img;
+
+	async function getComicByNum(num) {
+		const response = await fetch(`/api/xkcd/${num}`);
+
+		if (!response.ok) {
+			throw new Error(`Response Status: ${response.status}`);
+		}
+
+		return response.json();
+	}
+
+	async function loadCurrentComic() {
+		currentData = await getCurrentComic();
+		renderComic(currentData);
+		return currentData;
+	}
+	loadCurrentComic();
+
+	container.querySelector(".latest-button").addEventListener("click", () => {
+		loadCurrentComic();
 	});
+
+	async function loadPreviousComic() {
+		if (!currentData) {
+			return;
+		}
+		const previousNum = currentData.num - 1;
+		const previousData = await getComicByNum(previousNum);
+
+		renderComic(previousData);
+	}
+
+	container
+		.querySelector(".previous-button")
+		.addEventListener("click", loadPreviousComic);
 }
 
 function destroyXkcd(container) {

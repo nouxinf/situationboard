@@ -284,6 +284,6 @@ input[type="search"] {
 	cursor: pointer;
 }
 
-#comic-img {
+[data-widget="xkcd"] > * {
 	max-width: 100%;
 }
