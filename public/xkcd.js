@@ -24,6 +24,7 @@ function initXkcd(container) {
 		<button class="previous-button">Previous</button
 		><button class="latest-button">Latest</button
 		><button class="next-button">Next</button>
+		<button class="random-button">Random</button>
 	`;
 
 	let currentData = null;
@@ -43,6 +44,10 @@ function initXkcd(container) {
 	container
 		.querySelector(".delete-widget")
 		.addEventListener("click", deleteHandler);
+
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * max);
+	}
 
 	function renderComic(data) {
 		currentData = data;
@@ -116,12 +121,24 @@ function initXkcd(container) {
 		renderComic(nextData);
 	}
 
+	async function loadRandomComic() {
+		if (!currentData) {
+			return;
+		}
+		let randomNum = getRandomInt(latestNum) + 1;
+		randomData = await getComicByNum(randomNum);
+		renderComic(randomData);
+	}
+
 	container
 		.querySelector(".previous-button")
 		.addEventListener("click", loadPreviousComic);
 	container
 		.querySelector(".next-button")
 		.addEventListener("click", loadNextComic);
+	container
+		.querySelector(".random-button")
+		.addEventListener("click", loadRandomComic);
 }
 
 function destroyXkcd(container) {
