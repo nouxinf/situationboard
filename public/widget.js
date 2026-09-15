@@ -66,6 +66,7 @@ const widgetRegistry = {
 	oilprice: { init: initOilprice, destroy: destroyOilprice },
 	clock: { init: initClock, destroy: destroyClock },
 	weather: { init: initWeather, destroy: destroyWeather },
+	xkcd: { init: initXkcd, destroy: destroyXkcd },
 };
 
 const widgetElements = new Map(); // key: instanceId, value: container div
