@@ -307,3 +307,19 @@ dialog::backdrop {
 .comic-img {
 	cursor: zoom-in;
 }
+
+#macaroni-heading {
+	border: 2px solid black;
+	border-radius: 0 0 10px 10px;
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1000;
+	background-color: white;
+}
+
+#macaroni-heading > span {
+	padding: 5px;
+	cursor: pointer;
+}
