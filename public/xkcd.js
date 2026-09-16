@@ -50,15 +50,26 @@ function initXkcd(container) {
 		.querySelector(".delete-widget")
 		.addEventListener("click", deleteHandler);
 
+	const imgEl = container.querySelector(".comic-img");
+	const zoomDialog = document.getElementById("xkcd-zoom");
+	const zoomedImage = document.getElementById("zoomed-xkcd");
+	const altText = container.querySelector(".alt-text");
+	const bigAltText = document.getElementById("big-xkcd-subtitle");
+	imgEl.addEventListener("click", () => {
+		zoomDialog.showModal();
+		zoomedImage.src = imgEl.src;
+		bigAltText.textContent = altText.textContent;
+	});
+
 	function getRandomInt(max) {
 		return Math.floor(Math.random() * max);
 	}
 
 	function renderComic(data) {
 		currentData = data;
-		container.querySelector(".comic-img").src = data.img;
+		imgEl.src = data.img;
 		container.querySelector(".comic-num").textContent = `#${data.num}`;
-		container.querySelector(".alt-text").textContent = data.alt;
+		altText.textContent = data.alt;
 	}
 
 	async function getCurrentComic() {

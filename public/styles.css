@@ -173,7 +173,8 @@ input[type="search"] {
 	max-width: 90%;
 	max-height: 90%;
 }
-#catpic-zoom::backdrop {
+
+dialog::backdrop {
 	background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -286,4 +287,19 @@ input[type="search"] {
 
 [data-widget="xkcd"] > * {
 	max-width: 100%;
+}
+
+#xkcd-zoom {
+	width: 90vw;
+	height: 90vh;
+	overflow: scroll;
+}
+
+#zoomed-xkcd {
+	width: 70%;
+	height: auto;
+}
+
+.comic-img {
+	cursor: zoom-in;
 }
