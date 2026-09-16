@@ -25,6 +25,11 @@ function initXkcd(container) {
 		><button class="latest-button">Latest</button
 		><button class="next-button">Next</button>
 		<button class="random-button">Random</button>
+		<input
+			type="number"
+			class="manual-id"
+			placeholder="Go to Comic Number"
+		/><button class="set-id-button">Go</button>
 	`;
 
 	let currentData = null;
@@ -139,6 +144,19 @@ function initXkcd(container) {
 	container
 		.querySelector(".random-button")
 		.addEventListener("click", loadRandomComic);
+	container
+		.querySelector(".set-id-button")
+		.addEventListener("click", async () => {
+			const idInTextBox = parseInt(
+				container.querySelector(".manual-id").value,
+			);
+			if (idInTextBox > latestNum || idInTextBox < 1) {
+				alert(`Comic ID can't be below 1 or above ${latestNum}`);
+			} else {
+				const idInTextBoxData = await getComicByNum(idInTextBox);
+				renderComic(idInTextBoxData);
+			}
+		});
 }
 
 function destroyXkcd(container) {
