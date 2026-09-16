@@ -2,6 +2,10 @@
 	font-family: "Inter", sans-serif;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
+
 .monospace {
 	font-family: "JetBrains Mono", monospace;
 }
