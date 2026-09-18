@@ -1,6 +1,11 @@
 const situationBoardSpan = document.getElementById("situationboard-macaroni");
+const situationBoardIconSpan = document.getElementById("icon-macaroni-span");
 
 situationBoardSpan.addEventListener("click", () => {
+	window.location.reload();
+});
+
+situationBoardIconSpan.addEventListener("click", () => {
 	window.location.reload();
 });
 

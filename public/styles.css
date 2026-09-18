@@ -328,3 +328,13 @@ dialog::backdrop {
 #about-dialog {
 	width: 90%;
 }
+
+#icon-macaroni {
+	width: 1.5rem;
+	height: auto;
+	vertical-align: middle;
+}
+
+#icon-macaroni-span {
+	padding: 0;
+}
