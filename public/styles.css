@@ -6,11 +6,13 @@
 [data-theme="light"] {
 	--color-bg: #ffffff;
 	--color-fg: #000000;
+	--icon-invert: 0;
 }
 
 [data-theme="dark"] {
-	--color-bg: #000000;
+	--color-bg: #2c2c2c;
 	--color-fg: #ffffff;
+	--icon-invert: 1;
 }
 
 body {
@@ -355,6 +357,7 @@ dialog::backdrop {
 	height: 15px;
 	width: auto;
 	cursor: pointer;
+	filter: brightness(0) invert(var(--icon-invert));
 }
 
 [data-widget="xkcd"] > * {
