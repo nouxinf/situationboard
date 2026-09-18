@@ -422,6 +422,9 @@ dialog::backdrop {
 	z-index: 1000;
 	background-color: var(--color-bg);
 	color: var(--color-fg);
+
+	width: max-content;
+	max-width: calc(100vw - 20px);
 }
 
 #macaroni-heading > span {
