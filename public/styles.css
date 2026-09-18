@@ -30,8 +30,17 @@ button {
 	border-radius: 5px;
 }
 
-a {
+a:link,
+a:visited {
 	font-weight: bold;
+}
+
+a:link {
+	color: rgb(0, 174, 255);
+}
+
+a:visited {
+	color: rgb(177, 100, 236);
 }
 
 input {
