@@ -1,5 +1,0 @@
-Notes for what to attribute on full release:
-Icons by fontawesome
-Loading GIF icon licensed under CC-BY-SA 4.0 International, made by Skorp24
-Markedjs
-DOMpurify
