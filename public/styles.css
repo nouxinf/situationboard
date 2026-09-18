@@ -250,7 +250,7 @@ dialog::backdrop {
 
 .move-left {
 	position: relative;
-	border: 2px solid var(--color-fg);
+	border: 2px solid rgb(128, 128, 128);
 	border-radius: 0;
 	border-bottom-left-radius: 5px;
 	cursor: e-resize;
@@ -269,7 +269,7 @@ dialog::backdrop {
 
 .move-right {
 	position: relative;
-	border: 2px solid var(--color-fg);
+	border: 2px solid rgb(128, 128, 128);
 	cursor: e-resize;
 	border-radius: 0;
 }
@@ -287,7 +287,7 @@ dialog::backdrop {
 
 .settings-icon {
 	position: relative;
-	border: 2px solid var(--color-fg);
+	border: 2px solid rgb(128, 128, 128);
 	cursor: pointer;
 	border-radius: 0;
 }
@@ -305,7 +305,7 @@ dialog::backdrop {
 
 .delete-widget {
 	position: relative;
-	border: 2px solid var(--color-fg);
+	border: 2px solid rgb(128, 128, 128);
 	cursor: pointer;
 	border-radius: 0;
 }
