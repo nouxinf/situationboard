@@ -323,3 +323,7 @@ dialog::backdrop {
 	padding: 5px;
 	cursor: pointer;
 }
+
+#attribution-dialog {
+	width: 90%;
+}

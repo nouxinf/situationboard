@@ -40,8 +40,8 @@
 	</head>
 	<body>
 		<div id="macaroni-heading">
-			<span>Situationboard</span>
-			<span>Attribution</span>
+			<span id="situationboard-macaroni">Situationboard</span>
+			<span id="attribution-macaroni">Attribution</span>
 			<span>About</span>
 		</div>
 		<h1 id="heading">SituationBoard</h1>
@@ -84,6 +84,61 @@
 			<img id="zoomed-xkcd" />
 			<i><h2 id="big-xkcd-subtitle"></h2></i>
 		</dialog>
+		<dialog
+			id="attribution-dialog"
+			closedby="any"
+		>
+			<h2>Attribution</h2>
+			<p>
+				This application utilizes several open-source libraries and
+				assets. Icons are provided by
+				<a
+					href="https://fontawesome.com/"
+					target="_blank"
+					>Font Awesome</a
+				>, and the loading GIF was created by Skorp24 under the
+				<a
+					href="https://creativecommons.org/licenses/by-sa/4.0/deed.en"
+					target="_blank"
+					>CC BY-SA 4.0 International</a
+				>
+				license. Markdown rendering and HTML sanitization are powered by
+				<a
+					href="https://marked.js.org/"
+					target="_blank"
+					>marked.js</a
+				>
+				, under the
+				<a
+					href="https://raw.githubusercontent.com/markedjs/marked/refs/heads/master/LICENSE"
+					target="_blank"
+					>MIT License</a
+				>
+				and
+				<a
+					href="https://cure53.de/purify"
+					target="_blank"
+					>DOMPurify</a
+				>, under the
+				<a
+					href="https://raw.githubusercontent.com/cure53/DOMPurify/refs/heads/main/LICENSE"
+					target="_blank"
+					>Apache 2.0 License</a
+				>
+				while interactive maps are built with
+				<a
+					href="https://leafletjs.com/"
+					target="_blank"
+					>Leaflet</a
+				>
+				under the
+				<a
+					href="https://raw.githubusercontent.com/Leaflet/Leaflet/refs/heads/main/LICENSE"
+					target="_blank"
+					>BSD-2-Clause license</a
+				>.
+			</p>
+		</dialog>
 		<script src="libs/marked.umd.js"></script>
 		<script src="libs/dompurify.js"></script>
 		<script src="libs/leaflet.js"></script>
@@ -93,5 +148,6 @@
 		<script src="oilprice.js"></script>
 		<script src="xkcd.js"></script>
 		<script src="widget.js"></script>
+		<script src="macaroni.js"></script>
 	</body>
 </html>
