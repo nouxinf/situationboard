@@ -31,7 +31,7 @@
 		"name": "xkcd",
 		"icon": "xkcd.svg",
 		"colour": "grey",
-		"description": "# XKCD\n",
+		"description": "# XKCD\n Comics © Randall Munroe. Used under the CC BY-NC 2.5 license https://xkcd.com/license.html",
 		"id": "xkcd"
 	}
 ]
