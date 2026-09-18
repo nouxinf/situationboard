@@ -1,3 +1,23 @@
+:root {
+	--grid-unit: 1rem;
+	--border-radius-base: 0.5rem;
+}
+
+[data-theme="light"] {
+	--color-bg: #ffffff;
+	--color-fg: #000000;
+}
+
+[data-theme="dark"] {
+	--color-bg: #000000;
+	--color-fg: #ffffff;
+}
+
+body {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+}
+
 * {
 	font-family: "Inter", sans-serif;
 }
@@ -20,7 +40,7 @@
 	width: 15rem;
 	height: 15rem;
 	border-radius: 10px;
-	background-color: white;
+	background-color: var(--color-bg);
 	border-style: dashed;
 	user-select: none;
 }
@@ -198,24 +218,72 @@ dialog::backdrop {
 }
 
 .move-left {
-	background: url("icons/arrow-left.svg") center no-repeat;
+	position: relative;
+	border: 2px solid var(--color-fg);
 	border-bottom-left-radius: 5px;
-	cursor: w-resize;
-}
-
-.move-right {
-	background: url("icons/arrow-right.svg") center no-repeat;
 	cursor: e-resize;
 }
 
+.move-left::before {
+	content: "";
+	position: absolute;
+	inset: 0px;
+
+	background-color: var(--color-fg);
+
+	-webkit-mask: url("icons/arrow-left.svg") center/contain no-repeat;
+	mask: url("icons/arrow-left.svg") center/contain no-repeat;
+}
+
+.move-right {
+	position: relative;
+	border: 2px solid var(--color-fg);
+	cursor: e-resize;
+}
+
+.move-right::before {
+	content: "";
+	position: absolute;
+	inset: 0px;
+
+	background-color: var(--color-fg);
+
+	-webkit-mask: url("icons/arrow-right.svg") center/contain no-repeat;
+	mask: url("icons/arrow-right.svg") center/contain no-repeat;
+}
+
 .settings-icon {
-	background: url("icons/settings.svg") center no-repeat;
+	position: relative;
+	border: 2px solid var(--color-fg);
 	cursor: pointer;
 }
 
+.settings-icon::before {
+	content: "";
+	position: absolute;
+	inset: 2px;
+
+	background-color: var(--color-fg);
+
+	-webkit-mask: url("icons/settings.svg") center/contain no-repeat;
+	mask: url("icons/settings.svg") center/contain no-repeat;
+}
+
 .delete-widget {
-	background: url("icons/delete.svg") center no-repeat;
+	position: relative;
+	border: 2px solid var(--color-fg);
 	cursor: pointer;
+}
+
+.delete-widget::before {
+	content: "";
+	position: absolute;
+	inset: 0px;
+
+	background-color: var(--color-fg);
+
+	-webkit-mask: url("icons/delete.svg") center/contain no-repeat;
+	mask: url("icons/delete.svg") center/contain no-repeat;
 }
 
 #widgets-list {
@@ -309,14 +377,15 @@ dialog::backdrop {
 }
 
 #macaroni-heading {
-	border: 2px solid black;
+	border: 2px solid var(--color-fg);
 	border-radius: 0 0 10px 10px;
 	position: fixed;
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
 	z-index: 1000;
-	background-color: white;
+	background-color: var(--color-bg);
+	color: var(--color-fg);
 }
 
 #macaroni-heading > span {
@@ -337,4 +406,9 @@ dialog::backdrop {
 
 #icon-macaroni-span {
 	padding: 0;
+}
+
+button {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
 }
