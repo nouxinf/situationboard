@@ -324,6 +324,7 @@ dialog::backdrop {
 	cursor: pointer;
 }
 
-#attribution-dialog {
+#attribution-dialog,
+#about-dialog {
 	width: 90%;
 }
