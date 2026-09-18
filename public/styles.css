@@ -415,3 +415,7 @@ button {
 	background-color: var(--color-bg);
 	color: var(--color-fg);
 }
+
+.oil-icon {
+	filter: brightness(0) invert(var(--icon-invert));
+}
