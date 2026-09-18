@@ -24,6 +24,16 @@ body {
 	font-family: "Inter", sans-serif;
 }
 
+button {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+	border-radius: 5px;
+}
+
+a {
+	font-weight: bold;
+}
+
 ::-webkit-scrollbar {
 	display: none;
 }
@@ -95,6 +105,9 @@ body {
 dialog {
 	outline: none;
 	max-width: 100vw;
+	background-color: var(--color-bg);
+	border-color: grey;
+	color: var(--color-fg);
 }
 
 #add-widgets {
@@ -222,6 +235,7 @@ dialog::backdrop {
 .move-left {
 	position: relative;
 	border: 2px solid var(--color-fg);
+	border-radius: 0;
 	border-bottom-left-radius: 5px;
 	cursor: e-resize;
 }
@@ -241,6 +255,7 @@ dialog::backdrop {
 	position: relative;
 	border: 2px solid var(--color-fg);
 	cursor: e-resize;
+	border-radius: 0;
 }
 
 .move-right::before {
@@ -258,6 +273,7 @@ dialog::backdrop {
 	position: relative;
 	border: 2px solid var(--color-fg);
 	cursor: pointer;
+	border-radius: 0;
 }
 
 .settings-icon::before {
@@ -275,6 +291,7 @@ dialog::backdrop {
 	position: relative;
 	border: 2px solid var(--color-fg);
 	cursor: pointer;
+	border-radius: 0;
 }
 
 .delete-widget::before {
@@ -405,15 +422,11 @@ dialog::backdrop {
 	width: 1.5rem;
 	height: auto;
 	vertical-align: middle;
+	filter: brightness(0) invert(var(--icon-invert));
 }
 
 #icon-macaroni-span {
 	padding: 0;
-}
-
-button {
-	background-color: var(--color-bg);
-	color: var(--color-fg);
 }
 
 .oil-icon {
