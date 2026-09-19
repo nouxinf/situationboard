@@ -111,3 +111,7 @@ You can self host SituationBoard fairly easy by just cloning the repo, then runn
 npm i
 node index.js
 ```
+
+## AI usage
+
+I used AI for general debugging of my code.
