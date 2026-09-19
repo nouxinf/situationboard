@@ -114,4 +114,4 @@ node index.js
 
 ## AI usage
 
-I used AI for general debugging of my code.
+I used Qwen and Clause for general debugging of my code.
